@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Amerikano Skor — Madduck</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff;
+    --fg: #0a0a0a;
+    --muted: #525252;
+    --accent: #c08416;
+    --card: #fafafa;
+    --border: #e5e5e5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a0a0a;
+      --fg: #f5f5f5;
+      --muted: #a3a3a3;
+      --accent: #fbbf24;
+      --card: #141414;
+      --border: #262626;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    margin: 0;
+    padding: 24px;
+    line-height: 1.6;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+  .logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  h1 {
+    font-size: 22px;
+    margin: 0;
+    letter-spacing: -0.3px;
+  }
+  .kicker {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  nav {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  nav a:hover { text-decoration: underline; }
+  section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-size: 18px;
+    margin: 0 0 14px;
+    letter-spacing: -0.2px;
+  }
+  h3 {
+    font-size: 15px;
+    margin: 18px 0 8px;
+  }
+  p, ul { margin: 8px 0; color: var(--fg); font-size: 15px; }
+  ul { padding-left: 22px; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .lang-switch {
+    display: inline-flex;
+    gap: 4px;
+    padding: 3px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--border);
+  }
+  .lang-switch button {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    padding: 5px 12px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .lang-switch button.active {
+    background: var(--accent);
+    color: #000;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 24px 0;
+  }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">♠</div>
+  <div style="flex:1">
+    <h1>Amerikano Skor</h1>
+    <div class="kicker">Türk Amerikan & Rummy Skor Tablosu</div>
+  </div>
+  <div class="lang-switch">
+    <button id="btn-tr" class="active" onclick="setLang('tr')">TR</button>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<nav>
+  <a href="#privacy" id="link-privacy">Gizlilik Politikası</a>
+  <a href="#terms" id="link-terms">Kullanım Koşulları</a>
+  <a href="#support" id="link-support">Destek</a>
+</nav>
+
+<!-- =========================================================== -->
+<!-- TR -->
+<!-- =========================================================== -->
+<div id="content-tr">
+
+<section id="privacy">
+  <h2>Gizlilik Politikası</h2>
+  <p class="muted">Son güncelleme: 19 Mayıs 2026</p>
+
+  <h3>Hiçbir Veri Toplamıyoruz</h3>
+  <p>
+    Amerikano Skor (com.madduck.amerikano) uygulaması kullanıcılarından
+    <strong>hiçbir kişisel veri toplamaz, paylaşmaz veya satmaz</strong>.
+    Tüm oyun verileriniz (oyuncu isimleri, skorlar, oyun geçmişi, ayarlar)
+    yalnızca cihazınızda saklanır.
+  </p>
+
+  <h3>Lokal Depolama</h3>
+  <p>
+    Uygulamayı kullandığınızda aşağıdaki bilgiler cihazınızın yerel
+    depolamasında (Apple AsyncStorage) tutulur:
+  </p>
+  <ul>
+    <li>Oyuncu adları (sizin girdiğiniz)</li>
+    <li>Maç skorları ve geçmiş</li>
+    <li>Tercih ettiğiniz dil ve oyun ayarları</li>
+    <li>Kayıtlı oyuncu grupları</li>
+  </ul>
+  <p>
+    Bu veriler bizim sunucularımıza veya üçüncü taraflara
+    <strong>asla gönderilmez</strong>. Uygulamayı silmeniz veya
+    "Tüm Verileri Sil" gibi bir aksiyon almanız durumunda bu veriler
+    tamamen yok olur.
+  </p>
+
+  <h3>İnternet Bağlantısı</h3>
+  <p>
+    Uygulama çevrimdışı çalışır. İnternet bağlantısı gerektirmez.
+    Hiçbir uzak sunucuyla iletişim kurmaz.
+  </p>
+
+  <h3>Reklam ve Analitik</h3>
+  <p>
+    Bu sürümde reklam veya kullanıcı analiz aracı bulunmamaktadır.
+    Gelecekte reklam eklersek, ayrı bir izin sürecinden geçecek ve bu
+    politika güncellenecektir.
+  </p>
+
+  <h3>Çocuklar</h3>
+  <p>
+    Uygulama her yaş grubuna uygundur (4+). Çocuklardan da yetişkinlerden
+    de veri toplanmadığı için özel bir COPPA uyumluluk önlemine gerek
+    duyulmamaktadır.
+  </p>
+
+  <h3>Foto Galerisi İzni</h3>
+  <p>
+    "Skor Kartı Paylaş" özelliğinde, oluşturduğunuz skor görselini
+    galerinize kaydetmek isterseniz iOS sizden Fotoğraflar izni ister.
+    Bu izin yalnızca <em>fotoğraf eklemek</em> içindir; mevcut
+    fotoğraflarınız okunmaz veya erişilmez.
+  </p>
+
+  <h3>İletişim</h3>
+  <p>
+    Bu gizlilik politikası hakkında sorularınız için:
+    <a href="mailto:hello@madduck.app">hello@madduck.app</a>
+  </p>
+</section>
+
+<section id="terms">
+  <h2>Kullanım Koşulları</h2>
+  <p class="muted">Son güncelleme: 19 Mayıs 2026</p>
+  <p>
+    Amerikano Skor uygulamasını kullanarak aşağıdaki koşulları
+    kabul etmiş olursunuz:
+  </p>
+  <ul>
+    <li>Uygulama "olduğu gibi" (as-is) sunulmaktadır.</li>
+    <li>Kazara veri kaybı durumunda sorumluluk kabul edilmez (uygulamayı silmek tüm verileri siler).</li>
+    <li>Uygulama içinde gösterilen tur tipleri ve kurallar genel Amerikan/Rummy oyun varyasyonlarını temsil eder; ailelere göre değişebilir.</li>
+    <li>Uygulamayı yeniden satmak, kopyalamak veya kötüye kullanmak yasaktır.</li>
+  </ul>
+</section>
+
+<section id="support">
+  <h2>Destek</h2>
+  <p>Yardıma mı ihtiyacın var? Bir hata mı buldun? Bize ulaş:</p>
+  <p>
+    📧 <a href="mailto:hello@madduck.app">hello@madduck.app</a><br/>
+    Genelde 1-2 iş günü içinde yanıt veriyoruz.
+  </p>
+  <h3>Sıkça Sorulanlar</h3>
+  <p><strong>Verilerim kaybolur mu?</strong><br/>
+  Uygulamayı silersen tüm veriler silinir. Cihazlar arası senkron
+  desteği bulunmamaktadır (gelecek sürümlerde iCloud sync gelebilir).</p>
+
+  <p><strong>Birden fazla oyun saklayabilir miyim?</strong><br/>
+  Evet, geçmişte 50 oyuna kadar saklanır. Daha eskileri otomatik silinir.</p>
+
+  <p><strong>Sık oynadığım grubu kaydedebilir miyim?</strong><br/>
+  Evet, Setup ekranında "Mevcut Grubu Kaydet" diyerek isim verip
+  saklayabilirsin. Sonra tek dokunuşla yükle.</p>
+</section>
+
+</div>
+
+<!-- =========================================================== -->
+<!-- EN -->
+<!-- =========================================================== -->
+<div id="content-en" class="hidden">
+
+<section>
+  <h2>Privacy Policy</h2>
+  <p class="muted">Last updated: May 19, 2026</p>
+
+  <h3>We Don't Collect Any Data</h3>
+  <p>
+    Amerikano Score (com.madduck.amerikano) does not collect, share, or
+    sell any personal data from its users. All your game data (player
+    names, scores, history, settings) is stored <strong>only on your
+    device</strong>.
+  </p>
+
+  <h3>Local Storage</h3>
+  <p>The following is stored in your device's local storage (Apple AsyncStorage):</p>
+  <ul>
+    <li>Player names you enter</li>
+    <li>Match scores and history</li>
+    <li>Language and game preferences</li>
+    <li>Saved player groups</li>
+  </ul>
+  <p>
+    This data is <strong>never transmitted</strong> to our servers or
+    any third party. Deleting the app removes all data.
+  </p>
+
+  <h3>Internet Connection</h3>
+  <p>
+    The app works fully offline. No internet connection required.
+    No remote server communication.
+  </p>
+
+  <h3>Ads & Analytics</h3>
+  <p>
+    This version has no ads or analytics. If we add ads later, it will
+    be disclosed and this policy will be updated.
+  </p>
+
+  <h3>Children</h3>
+  <p>
+    The app is rated 4+ and is suitable for all ages. Since no data is
+    collected from anyone (adult or child), no special COPPA measures
+    apply.
+  </p>
+
+  <h3>Photo Library Permission</h3>
+  <p>
+    The "Share Scorecard" feature can save the generated image to your
+    Photos library. iOS will ask for "Add Photos" permission for this.
+    This permission is <em>add-only</em>; we never read your existing photos.
+  </p>
+
+  <h3>Contact</h3>
+  <p>
+    Questions about this policy:
+    <a href="mailto:hello@madduck.app">hello@madduck.app</a>
+  </p>
+</section>
+
+<section>
+  <h2>Terms of Use</h2>
+  <p class="muted">Last updated: May 19, 2026</p>
+  <p>By using Amerikano Score you agree to:</p>
+  <ul>
+    <li>The app is provided "as-is".</li>
+    <li>We are not liable for accidental data loss (deleting the app deletes all data).</li>
+    <li>Round types and rules shown are general variants of Amerikan/Rummy; specific house rules may vary.</li>
+    <li>Reselling, copying, or misusing the app is prohibited.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Support</h2>
+  <p>Need help? Found a bug? Contact us:</p>
+  <p>
+    📧 <a href="mailto:hello@madduck.app">hello@madduck.app</a><br/>
+    We usually respond within 1-2 business days.
+  </p>
+  <h3>FAQ</h3>
+  <p><strong>Will I lose my data?</strong><br/>
+  Deleting the app deletes all data. Cross-device sync is not available
+  yet (may come in future via iCloud).</p>
+
+  <p><strong>Can I save multiple games?</strong><br/>
+  Yes, up to 50 games are kept in history. Older ones are auto-pruned.</p>
+
+  <p><strong>Can I save a frequent player group?</strong><br/>
+  Yes — in Setup, tap "Save Current Group", give it a name, and tap to
+  reload later.</p>
+</section>
+
+</div>
+
+<footer>
+  © 2026 Madduck · <a href="https://madduck.app" style="color:var(--muted);text-decoration:none">madduck.app</a>
+</footer>
+
+<script>
+  function setLang(lang) {
+    const tr = document.getElementById('content-tr');
+    const en = document.getElementById('content-en');
+    const btnTR = document.getElementById('btn-tr');
+    const btnEN = document.getElementById('btn-en');
+    if (lang === 'tr') {
+      tr.classList.remove('hidden'); en.classList.add('hidden');
+      btnTR.classList.add('active'); btnEN.classList.remove('active');
+      document.getElementById('link-privacy').textContent = 'Gizlilik Politikası';
+      document.getElementById('link-terms').textContent = 'Kullanım Koşulları';
+      document.getElementById('link-support').textContent = 'Destek';
+      document.documentElement.lang = 'tr';
+    } else {
+      en.classList.remove('hidden'); tr.classList.add('hidden');
+      btnEN.classList.add('active'); btnTR.classList.remove('active');
+      document.getElementById('link-privacy').textContent = 'Privacy Policy';
+      document.getElementById('link-terms').textContent = 'Terms of Use';
+      document.getElementById('link-support').textContent = 'Support';
+      document.documentElement.lang = 'en';
+    }
+  }
+  // Auto-detect device language
+  if ((navigator.language || 'en').toLowerCase().startsWith('tr')) {
+    setLang('tr');
+  } else {
+    setLang('en');
+  }
+</script>
+
+</body>
+</html>
